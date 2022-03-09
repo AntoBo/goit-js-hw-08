@@ -3,22 +3,18 @@ import Player from '@vimeo/player';
 import throttle from 'lodash.throttle';
 
 //get controls
-const iframe = document.querySelector('iframe#vimeo-player');
-const player = new Player(iframe);
+const player = new Player(document.querySelector('iframe#vimeo-player'));
 
-//resume player
-resumePlayerFromLastTime(player, localStorage.getItem('videoplayer-current-time'));
+//set time of player once
+setPlayerTime(player, localStorage.getItem('videoplayer-current-time'));
 
-//upd last time
+//upd last played time regular
+player.on('timeupdate', throttle(savePlayerTime, 2000));
 
-player.on('timeupdate', ({ seconds }) => {
+function savePlayerTime({ seconds }) {
   localStorage.setItem('videoplayer-current-time', seconds);
-});
+}
 
-// player.on('timeupdate', ({ seconds }) => {
-//   throttle(localStorage.setItem('videoplayer-current-time', seconds), 2000);
-// });
-
-function resumePlayerFromLastTime(currentPlayer, currentTime) {
+function setPlayerTime(currentPlayer, currentTime) {
   if (currentTime) currentPlayer.setCurrentTime(currentTime);
 }
