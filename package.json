@@ -7,14 +7,14 @@
   "homepage": "https://antobo.github.io/goit-js-hw-08/",
   "scripts": {
     "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url goit-js-hw-08/"
+    "build": "parcel build src/*.html --public-url /"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/goitacademy/goit-js-hw-08.git"
   },
   "keywords": [],
-  "author": "Alexander Repeta <alexander.repeta@gmail.com>",
+  "author": "AntoBo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/goitacademy/goit-js-hw-08/issues"
