@@ -7,7 +7,7 @@
   "homepage": "https://antobo.github.io/goit-js-hw-08/",
   "scripts": {
     "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /"
+    "build": "parcel build src/*.html --public-url /goit-js-hw-08/"
   },
   "repository": {
     "type": "git",
