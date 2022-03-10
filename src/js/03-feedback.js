@@ -5,7 +5,7 @@ import '../css/03-feedback.css';
 
 //get controls
 const formEl = document.querySelector('.feedback-form');
-formEl.addEventListener('input', setInputToLocStorage);
+formEl.addEventListener('input', throttle(setInputToLocStorage, 500));
 formEl.addEventListener('submit', onSubmitForm);
 const FORM_DATA_NAME = 'feedback-form-state';
 
