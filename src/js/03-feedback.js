@@ -10,6 +10,10 @@ const formEl = document.querySelector('.feedback-form');
 formEl.addEventListener('input', throttle(setInputToLocStorage, 500));
 formEl.addEventListener('submit', onSubmitForm);
 const FORM_DATA_NAME = 'feedback-form-state';
+const data = {
+  email: '',
+  message: '',
+};
 
 //set form fields with saved data
 populateIntupFeilds(formEl);
@@ -45,12 +49,12 @@ function makeData(event) {
   if (event.target.name === 'message') {
     data.message = event.target.value;
   }
-  return data;
+  // return data;
 }
 
 function onSubmitForm(event) {
   event.preventDefault();
-  console.log('form submitted with data: ', makeData(event));
+  console.log('form submitted with data: ', data);
 
   //kill all data
   event.currentTarget.reset();
