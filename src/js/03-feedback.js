@@ -1,19 +1,16 @@
-// нагородил кода, хочется лучше и проще
-
 //imports
 import throttle from 'lodash.throttle';
 import '../css/common.css';
 import '../css/03-feedback.css';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 //get controls
 const formEl = document.querySelector('.feedback-form');
 formEl.addEventListener('input', throttle(setInputToLocStorage, 500));
 formEl.addEventListener('submit', onSubmitForm);
 const FORM_DATA_NAME = 'feedback-form-state';
-const data = {
-  email: '',
-  message: '',
-};
+//global gata obj
+const data = { email: '', message: '' };
 
 //set form fields with saved data
 populateIntupFeilds(formEl);
@@ -29,33 +26,36 @@ function populateIntupFeilds(form) {
 
 //every time input occurs
 function setInputToLocStorage(event) {
-  localStorage.setItem(FORM_DATA_NAME, JSON.stringify(makeData(event)));
+  localStorage.setItem(FORM_DATA_NAME, JSON.stringify(updateData(event)));
 }
 
-//create obj with email and message data
-function makeData(event) {
-  let data = {};
-  //get data from localStorage
-  if (localStorage.getItem(FORM_DATA_NAME)) {
-    data = JSON.parse(localStorage.getItem(FORM_DATA_NAME));
-  } else {
-    data = { email: '', message: '' };
-  }
-
-  //update data
+function updateData(event) {
   if (event.target.name === 'email') {
     data.email = event.target.value;
   }
   if (event.target.name === 'message') {
     data.message = event.target.value;
   }
-  // return data;
+  return data;
 }
 
 function onSubmitForm(event) {
+  //dont reload page on submit
   event.preventDefault();
-  console.log('form submitted with data: ', data);
 
+  //check if fields are filled
+  if (!event.currentTarget.elements.email.value || !event.currentTarget.elements.message.value) {
+    Notify.failure('Надо заполнить все поля, Настя))', {
+      timeout: 2000,
+      showOnlyTheLastOne: true,
+      position: 'center-top',
+    });
+
+    return;
+  }
+
+  //send data
+  console.log('form submitted with data: ', updateData(event));
   //kill all data
   event.currentTarget.reset();
   localStorage.removeItem(FORM_DATA_NAME);
